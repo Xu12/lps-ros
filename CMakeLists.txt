@@ -5,9 +5,11 @@ project(bitcraze_lps_estimator)
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 find_package(catkin REQUIRED COMPONENTS
+  geometry_msgs
+  roscpp
   rospy
   std_msgs
-  geometry_msgs
+  tf
   message_generation
 )
 
@@ -140,6 +142,9 @@ include_directories(
 # target_link_libraries(bitcraze_lps_estimator_node
 #   ${catkin_LIBRARIES}
 # )
+
+add_executable(uwbtag_link src/uwbtag_link.cpp)
+target_link_libraries(uwbtag_link ${catkin_LIBRARIES})
 
 #############
 ## Install ##
