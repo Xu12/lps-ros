@@ -144,6 +144,7 @@ include_directories(
 # )
 
 add_executable(uwbtag_link src/uwbtag_link.cpp)
+add_dependencies(uwbtag_link bitcraze_lps_estimator_generate_messages_cpp)
 target_link_libraries(uwbtag_link ${catkin_LIBRARIES})
 
 #############

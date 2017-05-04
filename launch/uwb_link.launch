@@ -1,0 +1,11 @@
+<!-- UWB Ranges Publish -->
+<launch>
+  <param name="/use_sim_time" value="false"/>
+  <arg name="bag_record" value="false"/>
+
+  <rosparam file="$(find bitcraze_lps_estimator)/data/anchor_pos.yaml" command="load"/>
+  <rosparam file="$(find bitcraze_lps_estimator)/data/uwbtag_link.yaml" command="load"/>
+  <node pkg="bitcraze_lps_estimator" type="uwbtag_link" name="uwbtag_link" output="screen"/>
+
+  <node pkg="rosbag" type="record" name="rosbag_record" args="-a" if="$(arg bag_record)" />
+</launch>
