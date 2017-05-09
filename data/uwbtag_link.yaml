@@ -1,9 +1,11 @@
 UWBTag_SerialPort: "/dev/ttyACM0"
 UWBTag_BaudRate: 9600
-distance0_err: 0.0
-distance1_err: 0.0
-distance2_err: 0.0
-distance3_err: 0.0
-distance4_err: 0.0
-distance5_err: 0.0
-
+distance0_err: 0.1273
+distance1_err: 0.1273
+distance2_err: 0.1273
+distance3_err: 0.1273
+distance4_err: 0.1273
+distance5_err: 0.1273
+use_fit_flag: "true"
+fit_coffa: 0.9475
+fit_coffb: 0.4762

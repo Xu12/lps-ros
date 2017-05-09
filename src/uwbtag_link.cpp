@@ -2,7 +2,7 @@
 //Title: UWB tag driver (IoT Lab.)
 //Author: Chen Chun-Lin
 //Data: 2017/05/02
-//Update:
+//Update: 2017/05/05
 */
 
 #include <fcntl.h>
@@ -44,6 +44,10 @@ double main_freq_=MAIN_FREQ;
 double tf_rev_delay_t_=TF_REV_DELAY_T;
 int debug_flag_=DEBUG_FLAG;
 int tag_id=TAG_ID;
+
+bool use_fit_flag_=true;
+double fit_coffa_=0.9475;
+double fit_coffb_=0.4762;
 
 typedef struct
 {
@@ -181,6 +185,9 @@ int main(int argc, char** argv)
     n.getParam("distance3_err", distance_err[3]);
     n.getParam("distance4_err", distance_err[4]);
     n.getParam("distance5_err", distance_err[5]);
+    n.getParam("use_fit_flag", use_fit_flag_);
+    n.getParam("fit_coffa", fit_coffa_);
+    n.getParam("fit_coffb", fit_coffb_);
     /*
     try{ device.open(serial_port.c_str(), baud_rate); }
     catch(cereal::Exception& e)
@@ -293,7 +300,10 @@ int main(int argc, char** argv)
                         else
                             ranges[rx_id-1]=rx_num;
 
-                        printf("ID%d=%f\n", rx_id, ranges[rx_id-1]);
+                        if (use_fit_flag_==1)
+                            ranges[rx_id-1]=fit_coffa_*ranges[rx_id-1]+fit_coffb_;
+
+                        printf("ID%d=%f, use_fit=%s, A=%f, B=%f\n", rx_id, ranges[rx_id-1], use_fit_flag_ ? "true" : "false", fit_coffa_, fit_coffb_);
                         current_time = ros::Time::now();
                         uwb_msg.header.stamp = current_time;
                         uwb_msg.header.frame_id = "range";
